@@ -1,6 +1,8 @@
 import WrongNetworkMessage from '../components/WrongNetworkMessage'
 import ConnectWalletButton from '../components/ConnectWalletButton'
 import TodoList from '../components/TodoList'
+import TaskAbi from '../../backend/build/contracts/TaskContract.json'
+import { TaskContractAddress } from '@/config'
 
 /* 
 const tasks = [
@@ -14,7 +16,7 @@ export default function Home() {
 
   // Calls Metamask to connect wallet on clicking Connect Wallet button
   const connectWallet = async () => {
-
+    
   }
 
   // Just gets all the tasks from the contract
