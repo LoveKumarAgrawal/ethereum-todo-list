@@ -2,6 +2,7 @@ import { BsFillTrashFill } from 'react-icons/bs'
 
 interface TaskProps {
   taskText: string;
+  onClick: () => Promise<void>
 }
 
 const Task:React.FC<TaskProps> = ({taskText, onClick}) => {

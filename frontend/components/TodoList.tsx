@@ -1,6 +1,8 @@
 import Navbar from './Navbar';
 import { IoMdAddCircle } from 'react-icons/io';
 import Task from './Task';
+import { SyntheticEvent } from 'react';
+
 
 interface TaskType {
   id: bigint
@@ -12,8 +14,8 @@ interface TodoListProps {
   tasks: TaskType[];
   input: string;
   setInput: (value: string) => void;
-  addTask: (e: any) => Promise<void>; // Update to match the signature
-  deleteTask: (id: any, deleted: boolean) => Promise<void>
+  addTask: (e: SyntheticEvent) => Promise<void>; // Update to match the signature
+  deleteTask: (id: bigint, deleted: boolean) =>()=> Promise<void>
 }
 
 const TodoList: React.FC<TodoListProps> = ({ tasks, input, setInput, addTask, deleteTask }) => (
@@ -31,7 +33,7 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, input, setInput, addTask, de
         onChange={(e) => setInput(e.target.value)}
       />
       <IoMdAddCircle
-        onClick={(e: any) => addTask(e)}
+        onClick={(e:SyntheticEvent) => addTask(e)}
         className='text-[#ea0aff] text-[50px] cursor-pointer ml-[20px] mb-[10px]'
       />
     </form>
@@ -39,7 +41,7 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, input, setInput, addTask, de
       {
         tasks.map(item => (
           <Task
-            key={item.id.toString()}
+            key={item.id}
             taskText={item.taskText}
             onClick={deleteTask(item.id, true)} // Example: setting isDeleted to true
           />

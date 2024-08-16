@@ -7,8 +7,10 @@ import TaskAbi from '../../backend/build/contracts/TaskContract.json'
 import { TaskContractAddress } from '@/config'
 import { ethers } from 'ethers'
 import { useState, useEffect } from 'react'
+import { SyntheticEvent } from 'react'
 
 interface Task {
+  id: bigint;
   taskText: string;
   isDeleted: boolean;
 }
@@ -56,6 +58,8 @@ export default function Home() {
           signer
         )
         let allTasks = await TaskContract.getMyTasks()
+        console.log("these are all the tasks", allTasks);
+        
         setTasks(allTasks)
       } else {
         console.log('ethereum object does not exist')
@@ -65,7 +69,7 @@ export default function Home() {
     }
   }
 
-  const addTask = async (e:any) => {
+  const addTask = async (e:SyntheticEvent) => {
     e.preventDefault()
 
     let task = {
@@ -86,7 +90,7 @@ export default function Home() {
 
         TaskContract.addTask(task.taskText, task.isDeleted)
         .then(res => {
-          setTasks([...tasks, task])
+          getAllTasks();
         })
         .catch(err => {
           console.log(err)
